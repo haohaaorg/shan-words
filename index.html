@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Shan Words</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href='https://mmwebfonts.comquas.com/fonts/?font=yunghkio' />
+    <style>
+        body {
+            font-family: Yunghkio, Myanmar3, 'Masterpiece Uni Sans';
+        }
+
+        .container {
+            margin-top: 60px;
+        }
+
+        body {
+            background: #f6f7f9;
+        }
+
+        .sw {
+            font-size: 12px;
+        }
+
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 3px;
+            margin-bottom: 30px;
+        }
+
+        .remove {
+            font-size: 12px;
+        }
+
+        .hi {
+            font-weight: bold;
+            color: brown;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center">Generate shan words with <strong>shanwords.js</strong> (Including IPA symbols)</h2>
+        <div class="sw text-center">
+            <p>Shanwords.js <br> Version - 2.0 <br> Author - <a href="https://fb.com/ai.tgi" target="_blank">Ronald Aug</a> <br>saisenfa@gmail.com</p>
+            <a href="https://github.com/ronaldaug/shanwords/archive/master.zip" class="btn btn-primary" target="_blank">Download shanwords.js</a>
+        </div>
+        <hr>
+        <h4 class="text-center">Total words = 11153</h4>
+        <p class="text-center">This generator is based on 19 consonants, 6 tones and 102 vowels</p>
+        <p class="text-center"><span class="hi"> ုဝ်</span> and <span class="hi"> ွဝ်</span> were removed.</p>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <h4>Shan words that commonly use.</h4>
+                    <p>[total words = 11058]</p>
+                    <button class="btn btn-secondary comTxt">Download Text</button>
+                    <button class="btn btn-secondary comJson">Download Json</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box">
+                    <h4>Some Shan words that has no tones</h4>
+                    <p>[total words = 95]</p>
+                    <button class="btn btn-secondary notoneTxt">Download Text</button>
+                    <button class="btn btn-secondary notoneJson">Download File</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h4>References</h4>
+        <p><a href="https://en.wikipedia.org/wiki/Shan_language">Shan Dictionary</a></p>
+        <p><a href="http://www.internationalphoneticalphabet.org/ipa-sounds/ipa-chart-with-sounds" target="_blank">internationalphoneticalphabet</a></p>
+        <p><a href="http://sealang.net/shan/dictionary.htm">Sealang & Sao Tern Moeng dictionary.</a></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="dist/develope/shanwords.js"></script>
+    <script>
+        function
+        downloadsource(fileName, words, ipa, filetype) {
+            var jobj = {};
+            var text = [];
+            if (filetype == 'txt') {
+                for (f = 0; f < words.length; f++) {
+                      text += words[f] + '          ' + ipa[f] + '\n';
+                }
+                var blob = new Blob([text], {
+                    type: "text/plain"
+                });
+                var anchor = document.createElement("a");
+                anchor.download = fileName + ".txt";
+            } else {
+                for (f = 0; f < words.length; f++) {
+                    jobj[words[f]] = ipa[f];
+                }
+                text = JSON.stringify(jobj);
+                var blob = new Blob([text], {
+                    type: "application/json"
+                });
+                var anchor = document.createElement("a");
+                anchor.download = fileName + ".json";
+            }
+            anchor.href = window.URL.createObjectURL(blob);
+            anchor.target = "_blank";
+            anchor.style.display = "none"; // just to be safe!
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        }
+        $('.comTxt').on('click', function() {
+            return downloadsource("common", shan_common, ipa_common, 'txt');
+        });
+
+        $('.comJson').on('click', function() {
+            return downloadsource("common", shan_common, ipa_common, 'json');
+        });
+
+        $('.notoneTxt').on('click', function() {
+            return downloadsource("notones", shan_notones, ipa_notones, 'txt');
+        });
+
+        $('.notoneJson').on('click', function() {
+            return downloadsource("notones", shan_notones, ipa_notones, 'json');
+        });
+
+    </script>
+</body>
+
+</html>
