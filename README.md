@@ -3,7 +3,7 @@
 
 - [Read in Shan](#shan)
 
-To generate all possible Shan(Tai) words and use in development projects.
+Shan words can generate all possible Shan(Tai) words.
 
 [Demo](https://shan-words-generator.netlify.com/)
 
